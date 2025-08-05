@@ -27,5 +27,6 @@ jobs:
           git fetch hf
           git rebase hf/main
 
-      - name: Push to Hugging Face
-        run: git push hf main
+      - name: Push to Hugging Face (force)
+        run: git push hf main --force
+
