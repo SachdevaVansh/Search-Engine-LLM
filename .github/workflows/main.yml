@@ -2,27 +2,26 @@ name: Sync to Hugging Face hub
 
 on:
   push:
-    branches: [main]
-
-  workflow_dispatch:
+    branches: [main]        # Trigger only on main branch changes
+  workflow_dispatch:         # Allow manual trigger from GitHub Actions tab
 
 jobs:
   sync-to-hub:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      - name: Checkout GitHub repo
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0
-          lfs: true
+          fetch-depth: 0     # Important: fetch full history to avoid rebase issues
+          lfs: true          # If you use large files
 
-      - name: Set up Git
+      - name: Set up Git identity
         run: |
-          git config --global user.email "you@example.com"
-          git config --global user.name "Your Name"
+          git config --global user.email "bh2ggsipu@gmail.com"
+          git config --global user.name "SachdevaVansh"
 
-      - name: Add Hugging Face remote
+      - name: Add Hugging Face remote and rebase
         run: |
           git remote add hf https://SachdevaVansh:${{ secrets.HF_TOKEN }}@huggingface.co/spaces/SachdevaVansh/Search_Engine_LLM
           git fetch hf
